@@ -49,14 +49,14 @@ def memoize_to_disk():
     return decorator
 
 
-@memoize_to_disk()
+# @memoize_to_disk()
 def read_categories():
     r = requests.get(f"https://handla.ica.se/api/product-info/v1/store/{store}/category/catalog80002")
     assert r.ok
 
     return r.json()
 
-@memoize_to_disk()
+# @memoize_to_disk()
 def list_category(category: str):
     r = requests.get(f"https://handla.ica.se/api/content/v1/collections/facets/customer-type/B2C/store/{store_long}/products?categories={category}&bb=true")
                     #    https://handla.ica.se/api/content/v1/collections/facets/customer-type/B2C/store/01143/products?categories=%22ica-online-catalog-id_catalog80002&bb=true
@@ -64,7 +64,7 @@ def list_category(category: str):
 
     return r.json()
 
-@memoize_to_disk()
+# @memoize_to_disk()
 def get_product_data(product_ids: List[int]):
     if len(product_ids) == 0:
         return []
