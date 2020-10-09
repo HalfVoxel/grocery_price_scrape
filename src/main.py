@@ -125,30 +125,44 @@ def expect(v: bool):
         print("A a soft assert failed. Something may have failed.")
 
 
+def scrape_store(store):
+    root_category = read_categories(store)
+
+    all_items = list_category(store, root_category["seoUrl"])["items"]
+
+    seen_items = set()
+    unique_items = []
+    for item in all_items:
+        if not item["id"] in seen_items:
+            assert item["id"] is not None
+            seen_items.add(item["id"])
+            unique_items.append(item)
+
+    expect(len(all_items) > 10000)
+
+    products = get_product_data_chunked(store, [item["id"] for item in unique_items if item["type"] == "product"])
+
+    today = datetime.today()
+    dirpath = f"data/{store.short_id}/{today.strftime('%Y-%m-%d')}"
+    os.makedirs(dirpath)
+
+    with gzip.GzipFile(dirpath + "/products.json.pickle.gzip", 'wb') as file:
+        file.write(pickle.dumps(products))
+        
 def main():
     for store in stores:
-        root_category = read_categories(store)
-
-        all_items = list_category(store, root_category["seoUrl"])["items"]
-
-        seen_items = set()
-        unique_items = []
-        for item in all_items:
-            if not item["id"] in seen_items:
-                assert item["id"] is not None
-                seen_items.add(item["id"])
-                unique_items.append(item)
-
-        expect(len(all_items) > 10000)
-
-        products = get_product_data_chunked(store, [item["id"] for item in unique_items if item["type"] == "product"])
-
-        today = datetime.today()
-        dirpath = f"data/{store.short_id}/{today.strftime('%Y-%m-%d')}"
-        os.makedirs(dirpath)
-
-        with gzip.GzipFile(dirpath + "/products.json.pickle.gzip", 'wb') as file:
-            file.write(pickle.dumps(products))
+        max_tries = 3
+        for i in range(max_tries):
+            try:
+                scrape_store(store)
+                break
+            except Exception as e:
+                if i < max_tries - 1:
+                    print(f"Failed scraping store {e.__repr__()}. Trying again in a few seconds ({i+2} of {max_tries})")
+                    time.sleep(10.0)
+                else:
+                    print(f"Failed scraping store {e}. Giving up")
+                    raise e
 
 
 main()
