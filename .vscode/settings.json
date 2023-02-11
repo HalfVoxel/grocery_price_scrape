@@ -1,0 +1,60 @@
+{
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.scrapy": true,
+        "**/.svn": true,
+        "**/CVS": true,
+        "**/Thumbs.db": true,
+        "**/__pycache__": true,
+        "backend_rs/target": true,
+        "home_scraper/output": true,
+        "home_scraper/scraping_db": true
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.scrapy": true,
+        "**/__pycache__/**": true,
+        "**/node_modules/*/**": true,
+        "home_scraper/output/**": true,
+        "home_scraper/scraping_db/**": true
+    },
+    "git.ignoreLimitWarning": true,
+    "javascript.format.semicolons": "insert",
+    "json.format.enable": true,
+    "prettier.tabWidth": 4,
+    "python.analysis.extraPaths": ["backend", "home_scraper", "trip_planner"],
+    "python.formatting.autopep8Args": ["--max-line-length", "120"],
+    "python.formatting.provider": "autopep8",
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.mypyArgs": [
+        "--follow-imports=silent",
+        "--ignore-missing-imports",
+        "--show-column-numbers",
+        "--check-untyped-defs",
+        "--strict"
+    ],
+    "python.linting.mypyEnabled": true,
+    "rust-analyzer.procMacro.enable": false,
+    "svelte.enable-ts-plugin": true,
+    "svelte.plugin.svelte.format.config.printWidth": 120,
+    "svelte.plugin.svelte.format.config.svelteStrictMode": false,
+    "typescript.format.semicolons": "insert",
+    "typescript.updateImportsOnFileMove.enabled": "always"
+}
