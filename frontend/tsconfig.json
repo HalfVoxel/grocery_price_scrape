@@ -1,0 +1,17 @@
+{
+    "extends": "@tsconfig/svelte/tsconfig.json",
+
+    "include": ["src/**/*"],
+    "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
+    "compilerOptions": {
+        // "target": "es6",
+        // "lib": ["es5", "es6", "dom"],
+        "noImplicitAny": true,
+        "removeComments": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        // "preserveConstEnums": true,
+        // "esModuleInterop": true,
+        "strict": true
+    }
+}
